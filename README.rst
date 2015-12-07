@@ -2,6 +2,9 @@
 README
 ======
 
+Waff is Waffle without a back-end. It's for use in sites that are stateless or
+that don't have a "conventional" database back-end.
+
 Django Waffle is (yet another) feature flipper for Django. You can
 define the conditions for which a flag should be active, and use it in
 a number of ways.
