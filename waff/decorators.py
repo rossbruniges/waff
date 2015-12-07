@@ -7,7 +7,7 @@ from django.utils.decorators import available_attrs
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.shortcuts import redirect
 
-from waffle import flag_is_active, switch_is_active
+from waff import flag_is_active, switch_is_active
 
 
 def waffle_flag(flag_name, redirect_to=None):

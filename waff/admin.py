@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 from django.contrib import admin
 
-from waffle.models import Flag, Sample, Switch
+from waff.models import Flag, Sample, Switch
 
 
 def enable_for_all(ma, request, qs):

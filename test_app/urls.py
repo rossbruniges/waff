@@ -23,6 +23,6 @@ urlpatterns = patterns('',
     url(r'^flagged_view_with_valid_url_name', views.flagged_view_with_valid_url_name),
     url(r'^flagged_view_with_invalid_redirect', views.flagged_view_with_invalid_redirect),
     url(r'^flag-off', views.flagged_off_view),
-    (r'^', include('waffle.urls')),
+    (r'^', include('waff.urls')),
     (r'^admin/', include(admin.site.urls))
 )

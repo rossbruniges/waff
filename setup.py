@@ -1,13 +1,12 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='django-waffle',
+    name='waff',
     version='0.11',
-    description='A feature flipper for Django.',
+    description='Waff is Waffle (a feature flipper for Django) without a database backend.',
     long_description=open('README.rst').read(),
-    author='James Socol',
-    author_email='me@jamessocol.com',
-    url='http://github.com/jsocol/django-waffle',
+    author='Waff Authors',
+    author_email='DL-QuickOrderTeam@marks-and-spencer.com',
     license='BSD',
     packages=find_packages(exclude=['test_app', 'test_settings']),
     include_package_data=True,

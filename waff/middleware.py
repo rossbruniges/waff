@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 from django.utils.encoding import smart_str
 
-from waffle.utils import get_setting
+from waff.utils import get_setting
 
 
 class WaffleMiddleware(object):

@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 
-from waffle.models import Flag, Switch
-from waffle.tests.base import TestCase
+from waff.models import Flag, Switch
+from waff.tests.base import TestCase
 
 
 class DecoratorTests(TestCase):

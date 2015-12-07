@@ -9,11 +9,11 @@ from django.test.utils import override_settings
 
 import mock
 
-import waffle
+import waff
 from test_app import views
-from waffle.middleware import WaffleMiddleware
-from waffle.models import Flag, Sample, Switch
-from waffle.tests.base import TestCase
+from waff.middleware import WaffleMiddleware
+from waff.models import Flag, Sample, Switch
+from waff.tests.base import TestCase
 
 
 def get(**kw):
@@ -215,53 +215,53 @@ class WaffleTests(TestCase):
         request = get()  # Create a clean request.
         assert not hasattr(request, 'waffles')
         uniform.return_value = '10'  # < 50. Flag is True.
-        assert waffle.flag_is_active(request, 'myflag')
+        assert waff.flag_is_active(request, 'myflag')
         assert hasattr(request, 'waffles')  # We should record this flag.
         assert 'myflag' in request.waffles
         assert request.waffles['myflag'][0]
         uniform.return_value = '70'  # > 50. Normally, Flag would be False.
-        assert waffle.flag_is_active(request, 'myflag')
+        assert waff.flag_is_active(request, 'myflag')
         assert request.waffles['myflag'][0]
 
     def test_undefined(self):
         """Undefined flags are always false."""
         request = get()
-        assert not waffle.flag_is_active(request, 'foo')
+        assert not waff.flag_is_active(request, 'foo')
 
     @override_settings(WAFFLE_FLAG_DEFAULT=True)
     def test_undefined_default(self):
         """WAFFLE_FLAG_DEFAULT controls undefined flags."""
         request = get()
-        assert waffle.flag_is_active(request, 'foo')
+        assert waff.flag_is_active(request, 'foo')
 
     @override_settings(WAFFLE_OVERRIDE=True)
     def test_override(self):
         request = get(foo='1')
         Flag.objects.create(name='foo')  # Off for everyone.
-        assert waffle.flag_is_active(request, 'foo')
+        assert waff.flag_is_active(request, 'foo')
 
     def test_testing_flag(self):
         Flag.objects.create(name='foo', testing=True)
         request = get(dwft_foo='1')
-        assert waffle.flag_is_active(request, 'foo')
+        assert waff.flag_is_active(request, 'foo')
         assert 'foo' in request.waffle_tests
         assert request.waffle_tests['foo']
 
         # GET param should override cookie
         request = get(dwft_foo='0')
         request.COOKIES['dwft_foo'] = 'True'
-        assert not waffle.flag_is_active(request, 'foo')
+        assert not waff.flag_is_active(request, 'foo')
         assert 'foo' in request.waffle_tests
         assert not request.waffle_tests['foo']
 
     def test_testing_disabled_flag(self):
         Flag.objects.create(name='foo')
         request = get(dwft_foo='1')
-        assert not waffle.flag_is_active(request, 'foo')
+        assert not waff.flag_is_active(request, 'foo')
         assert not hasattr(request, 'waffle_tests')
 
         request = get(dwft_foo='0')
-        assert not waffle.flag_is_active(request, 'foo')
+        assert not waff.flag_is_active(request, 'foo')
         assert not hasattr(request, 'waffle_tests')
 
     def test_set_then_unset_testing_flag(self):
@@ -288,23 +288,23 @@ class EnvVarTests(TestCase):
     """
 
     def setUp(cls):
-        setattr(waffle, 'USE_ENV_VARS', True)
-        setattr(waffle, 'ALPHA_USERS', [])
-        setattr(waffle, 'BETA_USERS', [])
-        setattr(waffle, 'ALPHA_FLAGS', [])
-        setattr(waffle, 'BETA_FLAGS', [])
-        setattr(waffle, 'ALL_FLAGS', [])
+        setattr(waff, 'USE_ENV_VARS', True)
+        setattr(waff, 'ALPHA_USERS', [])
+        setattr(waff, 'BETA_USERS', [])
+        setattr(waff, 'ALPHA_FLAGS', [])
+        setattr(waff, 'BETA_FLAGS', [])
+        setattr(waff, 'ALL_FLAGS', [])
 
     @classmethod
     def tearDownClass(cls):
-        setattr(waffle, 'USE_ENV_VARS', False)
+        setattr(waff, 'USE_ENV_VARS', False)
 
     def test_parse_env_vars(self):
         """
         A comma-separated list of items is turned into a ordered list.
         """
         with mock.patch('os.getenv', return_value='foo,bar,baz') as patch:
-            actual = waffle.parse_env_vars('foo')
+            actual = waff.parse_env_vars('foo')
             expected = ['foo', 'bar', 'baz']
             assert expected == actual
 
@@ -314,7 +314,7 @@ class EnvVarTests(TestCase):
         entries are ignored).
         """
         with mock.patch('os.getenv', return_value='foo,,baz') as patch:
-            actual = waffle.parse_env_vars('foo')
+            actual = waff.parse_env_vars('foo')
             expected = ['foo', 'baz']
             assert expected == actual
 
@@ -323,7 +323,7 @@ class EnvVarTests(TestCase):
         A none-existent environment variable will return an empty list.
         """
         with mock.patch('os.getenv', return_value=None) as patch:
-            actual = waffle.parse_env_vars('foo')
+            actual = waff.parse_env_vars('foo')
             expected = []
             assert expected == actual
 
@@ -331,150 +331,150 @@ class EnvVarTests(TestCase):
         """
         Ensure the expected code branch is used when USE_ENV_VARS is truthy.
         """
-        with mock.patch('waffle.flag_is_active_from_env',
+        with mock.patch('waff.flag_is_active_from_env',
                         return_value=False) as patch:
             request = get()
-            assert not waffle.flag_is_active(request, 'foo')
+            assert not waff.flag_is_active(request, 'foo')
             patch.assert_called_once_with(request, 'foo')
 
     def test_no_flags_set(self):
         """
         ALPHA, BETA and ALL are empty. Must return False
         """
-        setattr(waffle, 'ALPHA_FLAGS', [])
-        setattr(waffle, 'BETA_FLAGS', [])
-        setattr(waffle, 'ALL_FLAGS', [])
+        setattr(waff, 'ALPHA_FLAGS', [])
+        setattr(waff, 'BETA_FLAGS', [])
+        setattr(waff, 'ALL_FLAGS', [])
         request = get()
-        assert not waffle.flag_is_active(request, 'foo')
+        assert not waff.flag_is_active(request, 'foo')
 
     def test_all_flags_matched(self):
         """
         The flag has been found in ALL_FLAGS. Must return True.
         """
-        setattr(waffle, 'ALL_FLAGS', ['foo', ])
+        setattr(waff, 'ALL_FLAGS', ['foo', ])
         request = get()
-        assert waffle.flag_is_active(request, 'foo')
+        assert waff.flag_is_active(request, 'foo')
 
     def test_flag_in_alpha_not_alpha_user(self):
         """
         The referenced flag is in the ALPHA bucket but the requesting user
         isn't an ALPHA_USER. Must return False.
         """
-        setattr(waffle, 'ALPHA_FLAGS', ['foo', ])
+        setattr(waff, 'ALPHA_FLAGS', ['foo', ])
         request = get()
-        assert not waffle.flag_is_active(request, 'foo')
+        assert not waff.flag_is_active(request, 'foo')
 
     def test_flag_in_alpha_with_alpha_user(self):
         """
         The referenced flag is in the ALPHA bucket AND the requesting user is
         an ALPHA_USER. Must return True.
         """
-        setattr(waffle, 'ALPHA_FLAGS', ['foo', ])
-        setattr(waffle, 'ALPHA_USERS', ['bar', ])
+        setattr(waff, 'ALPHA_FLAGS', ['foo', ])
+        setattr(waff, 'ALPHA_USERS', ['bar', ])
         request = get()
         request.user.username = 'bar'
-        assert waffle.flag_is_active(request, 'foo')
+        assert waff.flag_is_active(request, 'foo')
 
     def test_flag_in_beta_not_beta_user(self):
         """
         The referenced flag is in the BETA bucket but the requesting user
         isn't a BETA_USER. Must return False.
         """
-        setattr(waffle, 'BETA_FLAGS', ['foo', ])
+        setattr(waff, 'BETA_FLAGS', ['foo', ])
         request = get()
-        assert not waffle.flag_is_active(request, 'foo')
+        assert not waff.flag_is_active(request, 'foo')
 
     def test_flag_in_beta_with_beta_user(self):
         """
         The referenced flag is in the BETA bucket AND the requesting user is
         a BETA_USER. Must return True.
         """
-        setattr(waffle, 'BETA_FLAGS', ['foo', ])
-        setattr(waffle, 'BETA_USERS', ['bar', ])
+        setattr(waff, 'BETA_FLAGS', ['foo', ])
+        setattr(waff, 'BETA_USERS', ['bar', ])
         request = get()
         request.user.username = 'bar'
-        assert waffle.flag_is_active(request, 'foo')
+        assert waff.flag_is_active(request, 'foo')
 
     def test_flag_does_not_match_existing_flags(self):
         """
         There are flags in all the *_FLAGS buckets but the referenced flag does
         not match. Must return False.
         """
-        setattr(waffle, 'ALL_FLAGS', ['foo', ])
-        setattr(waffle, 'ALPHA_FLAGS', ['bar', ])
-        setattr(waffle, 'BETA_FLAGS', ['baz', ])
+        setattr(waff, 'ALL_FLAGS', ['foo', ])
+        setattr(waff, 'ALPHA_FLAGS', ['bar', ])
+        setattr(waff, 'BETA_FLAGS', ['baz', ])
         request = get()
-        assert not waffle.flag_is_active(request, 'qux')
+        assert not waff.flag_is_active(request, 'qux')
 
     def test_flag_no_user(self):
         """
         If there is no user to match into the ALPHA and BETA buckets then
         return False.
         """
-        setattr(waffle, 'ALPHA_FLAGS', ['foo', ])
+        setattr(waff, 'ALPHA_FLAGS', ['foo', ])
         request = get()
         delattr(request, 'user')
-        assert not waffle.flag_is_active(request, 'foo')
+        assert not waff.flag_is_active(request, 'foo')
 
 
 class SwitchTests(TestCase):
     def test_switch_active(self):
         switch = Switch.objects.create(name='myswitch', active=True)
-        assert waffle.switch_is_active(switch.name)
+        assert waff.switch_is_active(switch.name)
 
     def test_switch_inactive(self):
         switch = Switch.objects.create(name='myswitch', active=False)
-        assert not waffle.switch_is_active(switch.name)
+        assert not waff.switch_is_active(switch.name)
 
     def test_switch_active_from_cache(self):
         """Do not make two queries for an existing active switch."""
         switch = Switch.objects.create(name='myswitch', active=True)
         # Get the value once so that it will be put into the cache
-        assert waffle.switch_is_active(switch.name)
+        assert waff.switch_is_active(switch.name)
         queries = len(connection.queries)
-        assert waffle.switch_is_active(switch.name)
+        assert waff.switch_is_active(switch.name)
         self.assertEqual(queries, len(connection.queries), 'We should only make one query.')
 
     def test_switch_inactive_from_cache(self):
         """Do not make two queries for an existing inactive switch."""
         switch = Switch.objects.create(name='myswitch', active=False)
         # Get the value once so that it will be put into the cache
-        assert not waffle.switch_is_active(switch.name)
+        assert not waff.switch_is_active(switch.name)
         queries = len(connection.queries)
-        assert not waffle.switch_is_active(switch.name)
+        assert not waff.switch_is_active(switch.name)
         self.assertEqual(queries, len(connection.queries), 'We should only make one query.')
 
     def test_undefined(self):
-        assert not waffle.switch_is_active('foo')
+        assert not waff.switch_is_active('foo')
 
     @override_settings(WAFFLE_SWITCH_DEFAULT=True)
     def test_undefined_default(self):
-        assert waffle.switch_is_active('foo')
+        assert waff.switch_is_active('foo')
 
     @override_settings(DEBUG=True)
     def test_no_query(self):
         """Do not make two queries for a non-existent switch."""
         assert not Switch.objects.filter(name='foo').exists()
         queries = len(connection.queries)
-        assert not waffle.switch_is_active('foo')
+        assert not waff.switch_is_active('foo')
         assert len(connection.queries) > queries, 'We should make one query.'
         queries = len(connection.queries)
-        assert not waffle.switch_is_active('foo')
+        assert not waff.switch_is_active('foo')
         self.assertEqual(queries, len(connection.queries), 'We should only make one query.')
 
 
 class SampleTests(TestCase):
     def test_sample_100(self):
         sample = Sample.objects.create(name='sample', percent='100.0')
-        assert waffle.sample_is_active(sample.name)
+        assert waff.sample_is_active(sample.name)
 
     def test_sample_0(self):
         sample = Sample.objects.create(name='sample', percent='0.0')
-        assert not waffle.sample_is_active(sample.name)
+        assert not waff.sample_is_active(sample.name)
 
     def test_undefined(self):
-        assert not waffle.sample_is_active('foo')
+        assert not waff.sample_is_active('foo')
 
     @override_settings(WAFFLE_SAMPLE_DEFAULT=True)
     def test_undefined_default(self):
-        assert waffle.sample_is_active('foo')
+        assert waff.sample_is_active('foo')

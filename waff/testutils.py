@@ -2,8 +2,8 @@ from __future__ import unicode_literals
 
 from functools import wraps
 
-from waffle.compat import CLASS_TYPES
-from waffle.models import Flag, Switch, Sample
+from waff.compat import CLASS_TYPES
+from waff.models import Flag, Switch, Sample
 
 
 __all__ = ['override_flag', 'override_sample', 'override_switch']

@@ -2,8 +2,8 @@ from __future__ import unicode_literals
 
 from django.core.urlresolvers import reverse
 
-from waffle.models import Flag, Sample, Switch
-from waffle.tests.base import TestCase
+from waff.models import Flag, Sample, Switch
+from waff.tests.base import TestCase
 
 
 class WaffleViewTests(TestCase):
@@ -11,7 +11,7 @@ class WaffleViewTests(TestCase):
         response = self.client.get(reverse('wafflejs'))
         self.assertEqual(200, response.status_code)
         self.assertEqual('application/x-javascript', response['content-type'])
-        self.assertEqual('max-age=0', response['cache-control'])
+        self.assertIn('max-age=0', response['cache-control'])
 
     def test_flush_all_flags(self):
         """Test the 'FLAGS_ALL' list gets invalidated correctly."""

@@ -4,7 +4,7 @@ from decimal import Decimal
 import random
 import os
 
-from waffle.utils import get_setting, keyfmt
+from waff.utils import get_setting, keyfmt
 
 
 VERSION = (0, 11)

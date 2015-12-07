@@ -10,8 +10,8 @@ from django.db import models
 from django.db.models.signals import post_save, post_delete, m2m_changed
 from django.utils.encoding import python_2_unicode_compatible
 
-from waffle.compat import AUTH_USER_MODEL, cache
-from waffle.utils import get_setting, keyfmt
+from waff.compat import AUTH_USER_MODEL, cache
+from waff.utils import get_setting, keyfmt
 
 
 @python_2_unicode_compatible

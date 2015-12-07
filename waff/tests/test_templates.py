@@ -6,8 +6,8 @@ from django.template.base import VariableNode
 from django.test import RequestFactory
 
 from test_app import views
-from waffle.middleware import WaffleMiddleware
-from waffle.tests.base import TestCase
+from waff.middleware import WaffleMiddleware
+from waff.tests.base import TestCase
 
 
 def get():

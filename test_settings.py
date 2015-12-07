@@ -33,7 +33,7 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
-    'waffle',
+    'waff',
     'test_app',
 )
 
@@ -41,7 +41,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'waffle.middleware.WaffleMiddleware',
+    'waff.middleware.WaffleMiddleware',
 )
 
 ROOT_URLCONF = 'test_app.urls'
@@ -62,13 +62,13 @@ if django.VERSION < (1, 8):
 
     JINGO_EXCLUDE_APPS = (
         'django',
-        'waffle',
+        'waff',
     )
 
     JINJA_CONFIG = {
         'extensions': [
             'jinja2.ext.autoescape',
-            'waffle.jinja.WaffleExtension',
+            'waff.jinja.WaffleExtension',
         ],
     }
 
@@ -87,7 +87,7 @@ else:
                 'extensions': [
                     'jinja2.ext.i18n',
                     'jinja2.ext.autoescape',
-                    'waffle.jinja.WaffleExtension',
+                    'waff.jinja.WaffleExtension',
                 ],
             }
         },
@@ -112,5 +112,5 @@ if django.VERSION < (1, 7):
     INSTALLED_APPS += ('south', )
 
     SOUTH_MIGRATION_MODULES = {
-        'waffle': 'waffle.south_migrations'
+        'waff': 'waff.south_migrations'
     }

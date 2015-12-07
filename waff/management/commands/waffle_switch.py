@@ -4,7 +4,7 @@ from optparse import make_option
 
 from django.core.management.base import BaseCommand, CommandError
 
-from waffle.models import Switch
+from waff.models import Switch
 
 
 class Command(BaseCommand):

@@ -4,8 +4,8 @@ from django.conf import settings
 from django.test import TestCase
 from django.test.utils import override_settings
 
-from waffle import defaults
-from waffle.utils import get_setting
+from waff import defaults
+from waff.utils import get_setting
 
 
 class GetSettingTests(TestCase):

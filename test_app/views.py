@@ -3,8 +3,8 @@ from django.shortcuts import render_to_response, render
 from django.template import Context, RequestContext
 from django.template.loader import render_to_string
 
-from waffle import flag_is_active
-from waffle.decorators import waffle_flag, waffle_switch
+from waff import flag_is_active
+from waff.decorators import waffle_flag, waffle_switch
 
 
 def flag_in_view(request):
