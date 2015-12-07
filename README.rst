@@ -9,6 +9,8 @@ Django Waffle is (yet another) feature flipper for Django. You can
 define the conditions for which a flag should be active, and use it in
 a number of ways.
 
+For Waff specific details please see docs/starting/waff-only.rst.
+
 .. image:: https://travis-ci.org/jsocol/django-waffle.png?branch=master
    :target: https://travis-ci.org/jsocol/django-waffle
    :alt: Travis-CI Build Status

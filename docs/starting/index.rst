@@ -7,6 +7,7 @@ Getting Started
 .. toctree::
    :titlesonly:
 
+   waff-only
    requirements
    installation
    upgrading

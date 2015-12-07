@@ -1,11 +1,17 @@
 .. _index:
 
 =============
-Django Waffle
+Waff
 =============
+
+Waff is a fork of Django-Waffle for but works without a database layer.
 
 Waffle is feature flipper for Django. You can define the conditions for
 which a flag should be active, and use it in a number of ways.
+
+This documentation is based upon Waffle's without any significant changes (so
+where you see "waffle" it applies to "waff"). Please see the section on
+"waff only features" listed in the contents below.
 
 :Version:       |release|
 :Code:          https://github.com/jsocol/django-waffle
@@ -17,6 +23,7 @@ Contents:
 .. toctree::
    :titlesonly:
 
+   starting/waff-only
    about/why-waffle
    starting/index
    types/index

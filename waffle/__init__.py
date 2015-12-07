@@ -31,15 +31,15 @@ There are three arbitrary buckets: ALPHA, BETA and ALL. ALPHA and BETA have
 named users associated with them and flags set for each bucket will only be
 active for those users. ALL related flags apply to all users.
 """
-USE_ENV_VARS = os.getenv('WAFFLE_USE_ENV_VARS', False)
+USE_ENV_VARS = os.getenv('WAFF_USE_ENV_VARS', False)
 if USE_ENV_VARS:
-    ALPHA_USERS = parse_env_vars('WAFFLE_ALPHA_USERS')
-    BETA_USERS = parse_env_vars('WAFFLE_BETA_USERS')
-    ALPHA_FLAGS = parse_env_vars('WAFFLE_ALPHA_FLAGS')
-    BETA_FLAGS = parse_env_vars('WAFFLE_BETA_FLAGS')
-    ALL_FLAGS = parse_env_vars('WAFFLE_ALL_FLAGS')
-    SWITCHES = parse_env_vars('WAFFLE_SWITCHES')
-    SAMPLES = parse_env_vars('WAFFLE_SAMPLES')
+    ALPHA_USERS = parse_env_vars('WAFF_ALPHA_USERS')
+    BETA_USERS = parse_env_vars('WAFF_BETA_USERS')
+    ALPHA_FLAGS = parse_env_vars('WAFF_ALPHA_FLAGS')
+    BETA_FLAGS = parse_env_vars('WAFF_BETA_FLAGS')
+    ALL_FLAGS = parse_env_vars('WAFF_ALL_FLAGS')
+    SWITCHES = parse_env_vars('WAFF_SWITCHES')
+    SAMPLES = parse_env_vars('WAFF_SAMPLES')
 
 
 class DoesNotExist(object):
