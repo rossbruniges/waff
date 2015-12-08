@@ -1,0 +1,2 @@
+QO flag list in _app endpoint
+test on dev environment
