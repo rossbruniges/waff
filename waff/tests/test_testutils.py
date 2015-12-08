@@ -95,6 +95,10 @@ def req():
 
 
 class OverrideFlagTests(TestCase):
+
+    def setUp(cls):
+        setattr(waff, 'USE_ENV_VARS', False)
+
     def test_flag_existed_and_was_active(self):
         Flag.objects.create(name='foo', everyone=True)
 
