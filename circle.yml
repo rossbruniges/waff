@@ -1,0 +1,14 @@
+dependencies:
+  pre:
+    - pip install -r travis.txt
+  override:
+    - if [ -e requirements.txt ]; then pip install -r requirements.txt;else pip install -r requirements.pip;fi
+test:
+  override:
+    - ./run.sh test
+deployment:
+  production:
+    branch: master
+    commands:
+      - python setup.py sdist
+      - curl --fail -F package=@dist/waff-`python setup.py --version`.tar.gz https://${GEMFURY_SECRET}@push.fury.io/cwninja/
