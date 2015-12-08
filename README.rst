@@ -11,11 +11,11 @@ a number of ways.
 
 For Waff specific details please see docs/starting/waff-only.rst.
 
-.. image:: https://travis-ci.org/jsocol/django-waffle.png?branch=master
-   :target: https://travis-ci.org/jsocol/django-waffle
-   :alt: Travis-CI Build Status
+.. image:: https://circleci.com/gh/DigitalInnovation/waff.svg?style=svg
+   :target: https://circleci.com/gh/DigitalInnovation/waff
+   :alt: Circle-CI Build Status
 
-:Code:          https://github.com/jsocol/django-waffle
+:Code:          https://github.com/DigitalInnovation/waff/
 :License:       BSD; see LICENSE file
-:Issues:        https://github.com/jsocol/django-waffle/issues
-:Documentation: http://waffle.readthedocs.org/
+:Issues:        https://github.com/DigitalInnovation/waff/issues
+
