@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='waff',
-    version='0.11',
+    version='0.12',
     description='Waff is Waffle (a feature flipper for Django) without a database backend.',
     long_description=open('README.rst').read(),
     author='Waff Authors',
